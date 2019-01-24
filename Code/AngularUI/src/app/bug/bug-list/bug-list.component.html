@@ -1,0 +1,28 @@
+<nz-table #basicTable [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Tittle</th>
+      <th>Created By</th>
+      <th>Created On</th>
+      <th>Assigned To</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data.BugID}}</td>
+      <td>{{data.BugTittle}}</td>
+      <td>{{data.CreatedBy}}</td>
+      <td>{{data.CreatedOn}}</td>
+      <td>{{data.AssignedTo}}</td>
+      <td>{{data.Status}}</td>
+      <td>
+        <a>Detail</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
