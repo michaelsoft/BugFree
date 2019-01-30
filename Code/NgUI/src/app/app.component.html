@@ -4,13 +4,13 @@
       <h2>Bug Free</h2>
     </div>
     <div class="col-md-7">
-      <app-menu></app-menu>
+      <app-menu *ngIf="user"></app-menu>
     </div>
     <div class="col-md-3" style="padding: 5px; width:150px;">
-      <app-login-info></app-login-info>
+      <app-login-info *ngIf="user"></app-login-info>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="user">
     <div class="col-md-3">
       <app-bug-filter></app-bug-filter>
     </div>
@@ -25,6 +25,11 @@
       <app-bug-detail></app-bug-detail>
     </div>
   </div>
+  <div class="row" *ngIf="user == null">
+      <div class="col-md">
+        <app-login></app-login>
+      </div>
+    </div>
   <div class="row" style="height:50px;margin: 10px;">
     <div class="col" style="text-align: center;">
         <app-footer></app-footer>
