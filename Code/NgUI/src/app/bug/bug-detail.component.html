@@ -1,0 +1,87 @@
+<div id="BugDetail" class="row card">
+  <div class="col card-body">
+    <div class="bg-light clearfix ">
+      <span class="float-right" style="padding:5px;">
+        <i class="icon-plus icon-large"></i> New
+        <i class="icon-save icon-large" style="margin-left:5px;"></i> Save
+      </span>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form id="BugForm">
+          <div class="form-group row">
+            <label for="BugID" class="col-sm-2 col-form-label">Bug#:</label>
+            <div class="col-sm-10">
+              <input type="text" readonly disabled class="form-control-plaintext" id="BugID" value="1">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="BugTittle" class="col-sm-2 col-form-label">Tittle:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="BugTittle" value="">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group  row">
+              <label for="Severity" class="col-sm-3 col-form-label">Severity:</label>
+              <div class="col-sm-9">
+                <select id="Severity" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>...</option>
+                </select>
+              </div>
+            </div>
+            <div class="col form-group  row">
+              <label for="Priority" class="col-sm-3 col-form-label">Priority:</label>
+              <div class="col-sm-9">
+                <select id="Priority" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>...</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group  row">
+              <label for="CreatedBy" class="col-sm-5 col-form-label">Created By:</label>
+              <div class="col-sm-7">
+                <select id="CreatedBy" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>...</option>
+                </select>
+              </div>
+            </div>
+            <div class="col form-group  row">
+              <label for="CreatedOn" class="col-sm-5 col-form-label">Created On:</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="CreatedOn" value="">
+              </div>
+            </div>
+            <div class="col form-group  row">
+              <label for="AssignedTo" class="col-sm-5 col-form-label">Assigned To:</label>
+              <div class="col-sm-7">
+                <select id="AssignedTo" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>...</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <ul id="BugTabs" class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Repro Steps</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Attachment</a>
+            </li>
+          </ul>
+          <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea"
+            required></textarea>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

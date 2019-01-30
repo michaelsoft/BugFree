@@ -8,6 +8,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+import { BaseModule } from './base/base.module';
+import { BugModule } from './bug/bug.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +20,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BaseModule,
+    BugModule
   ],
   providers: [],
   bootstrap: [AppComponent]
