@@ -67,19 +67,16 @@
               </div>
             </div>
           </div>
-          <ul id="BugTabs" class="nav nav-tabs">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Repro Steps</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">History</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Attachment</a>
-            </li>
-          </ul>
-          <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea"
-            required></textarea>
+          <div>
+            <tabset>
+              <tab heading="Description" id="tab1">
+                <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea"
+                  required></textarea>
+              </tab>
+              <tab heading="Attachment">Attachment</tab>
+              <tab heading="History">History</tab>
+            </tabset>
+          </div>
         </form>
       </div>
     </div>
