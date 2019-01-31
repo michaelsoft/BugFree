@@ -1,0 +1,14 @@
+C:\BugFree\Code\BugFreeAPIs\bin\Debug\netcoreapp2.2\BugFreeAPIs.deps.json
+C:\BugFree\Code\BugFreeAPIs\bin\Debug\netcoreapp2.2\BugFreeAPIs.runtimeconfig.json
+C:\BugFree\Code\BugFreeAPIs\bin\Debug\netcoreapp2.2\BugFreeAPIs.runtimeconfig.dev.json
+C:\BugFree\Code\BugFreeAPIs\bin\Debug\netcoreapp2.2\BugFreeAPIs.dll
+C:\BugFree\Code\BugFreeAPIs\bin\Debug\netcoreapp2.2\BugFreeAPIs.pdb
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.csprojAssemblyReference.cache
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.csproj.CoreCompileInputs.cache
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.RazorAssemblyInfo.cache
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.RazorAssemblyInfo.cs
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.AssemblyInfoInputs.cache
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.AssemblyInfo.cs
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.RazorTargetAssemblyInfo.cache
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.dll
+C:\BugFree\Code\BugFreeAPIs\obj\Debug\netcoreapp2.2\BugFreeAPIs.pdb
