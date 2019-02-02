@@ -4,11 +4,15 @@ import { MenuComponent } from './menu.component';
 import { LoginInfoComponent } from './login-info.component';
 import { FooterComponent } from './footer.component';
 import { LoginComponent } from './login.component';
+import { FormsModule } from '@angular/forms';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [MenuComponent, LoginInfoComponent, FooterComponent, LoginComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    AlertModule
   ],
   exports: [ MenuComponent, LoginInfoComponent, FooterComponent, LoginComponent ]
 })

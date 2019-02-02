@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { User } from './user';
 
 @Component({
   selector: 'app-login-info',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginInfoComponent implements OnInit {
 
+  @Input() user: User;
+  @Output() onLogout = new EventEmitter(); 
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  fireLogout(): void {
+    this.onLogout.emit("");
   }
 
 }

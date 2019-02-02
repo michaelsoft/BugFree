@@ -11,7 +11,7 @@ export class SecurityService {
   authenticate(userName:string, password:string): AuthenticationResult {
      let retVal = new AuthenticationResult();
      
-     if (userName === "michael" && password === "123456") {
+     if (userName === "mlau" && password === "123") {
          retVal.result = true;
      }
      else
