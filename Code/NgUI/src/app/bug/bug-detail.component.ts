@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Bug } from './bug';
 
 @Component({
   selector: 'app-bug-detail',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BugDetailComponent implements OnInit {
 
-  constructor() { }
+  @Input() bug: Bug;
+  // bugForm: FormGroup;
+
+  constructor() { 
+    this.bug = new Bug();
+    // this.bugForm = new FormGroup();
+  }
 
   ngOnInit() {
+  }
+
+  save() {
+    // if (this.bugForm.valid) {
+      alert('Success!');
+    // }
+    // else {
+    //   alert('Error!');
+    // }
+    
   }
 
 }

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-import { CommonModule } from '@angular/common';
 import { BugListComponent } from './bug-list.component';
 import { BugDetailComponent } from './bug-detail.component';
 import { BugSearchComponent } from './bug-search.component';
@@ -13,7 +14,8 @@ import { BugFilterComponent } from './bug-filter.component';
   declarations: [BugListComponent, BugDetailComponent, BugSearchComponent, BugFilterComponent],
   imports: [
     TabsModule.forRoot(),
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [BugListComponent, BugDetailComponent, BugSearchComponent, BugFilterComponent],
 })

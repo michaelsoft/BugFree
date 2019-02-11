@@ -10,8 +10,8 @@ import { User } from './user';
 })
 export class LoginComponent implements OnInit {
 
-  @Input() userName: string;
-  @Input() password: string;
+  @Input() userName: string = "mlau";
+  @Input() password: string = "123";
   @Output() authenticated = new EventEmitter<User>();
   authResult: AuthenticationResult;
 
@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
        user.userName = this.userName;
        this.authenticated.emit(user);
      }
-     //console.log(authResult.result);
   }
 
 }
