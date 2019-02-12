@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2" style="text-align:center; margin-top:10px;">
+      <img src="../assets/images/bugfree.png" style="width:80px; height:80px;" />
+    </div>
+    <div class="col-md-7">
+      <app-menu></app-menu>
+    </div>
+    <!-- Login Info -->
+    <div class="col-md-3" style="padding: 5px; width:150px;">
+      <app-login-info *ngIf="user" [user]="user" (onLogout)="user = null"></app-login-info>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <app-bug-filter></app-bug-filter>
+    </div>
+    <div class="col-md-9">
+      <div id="BugList" class="row card">
+        <div class="col card-body">
+          <app-bug-search style="margin:10px 10px;"></app-bug-search>
+          <app-bug-list></app-bug-list>
+        </div>
+      </div>
+      <div class="row" style="height:10px;"></div>
+      <app-bug-detail></app-bug-detail>
+    </div>
+  </div>
+  <div class="row" style="height:50px;margin: 10px;">
+    <div class="col" style="text-align: center;">
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

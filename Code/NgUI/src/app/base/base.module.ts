@@ -11,9 +11,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
 import { fakeBackendProvider } from './fake-backend';
+import { HomeComponent } from './home.component';
 
 @NgModule({
-  declarations: [MenuComponent, LoginInfoComponent, FooterComponent, LoginComponent],
+  declarations: [MenuComponent, LoginInfoComponent, FooterComponent, LoginComponent, HomeComponent],
   imports: [
     CommonModule,
     FormsModule,
