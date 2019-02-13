@@ -12,6 +12,7 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
 import { fakeBackendProvider } from './fake-backend';
 import { HomeComponent } from './home.component';
+import { AppRoutingModule }        from '../app-routing.module';
 
 @NgModule({
   declarations: [MenuComponent, LoginInfoComponent, FooterComponent, LoginComponent, HomeComponent],
@@ -20,7 +21,8 @@ import { HomeComponent } from './home.component';
     FormsModule,
     AlertModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   exports: [ MenuComponent, LoginInfoComponent, FooterComponent, LoginComponent ],
   providers: [

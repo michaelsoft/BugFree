@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { AppData } from './app-data';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     constructor(private http: HttpClient) { }
 
     login(username: string, password: string) {
+        let url = `${ AppData.appSettings.serviceBaseUrl }/users/authenticate`;
+        alert(url);
         // return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })  //ToDo: why cannot use http here?
-        return this.http.post<any>(`https://localhost:5001/api/users/authenticate`, { username, password })
+        return this.http.post<any>(url, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

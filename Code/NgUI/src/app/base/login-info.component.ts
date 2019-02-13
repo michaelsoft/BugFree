@@ -1,5 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppData } from './app-data';
+import { Router } from '@angular/router';
 import { User } from './user';
+import { AuthenticationService } from './authentication.service';
 
 @Component({
   selector: 'app-login-info',
@@ -7,17 +10,18 @@ import { User } from './user';
   styleUrls: ['./login-info.component.css']
 })
 export class LoginInfoComponent implements OnInit {
+  user: User;
 
-  @Input() user: User;
-  @Output() onLogout = new EventEmitter(); 
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private router: Router, private authenticationService: AuthenticationService) { 
   }
 
-  fireLogout(): void {
-    this.onLogout.emit("");
+  ngOnInit() {
+    this.user = AppData.currentUser;
+  }
+
+  onLogout() {
+    this.authenticationService.logout();
+    this.router.navigate(["/login"]);
   }
 
 }

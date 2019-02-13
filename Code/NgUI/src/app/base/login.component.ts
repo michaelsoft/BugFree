@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SecurityService } from './security.service';
 import { AuthenticationResult } from './authenticationResult';
 import { User } from './user';
 
@@ -8,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from './authentication.service';
+import { AppData } from './app-data';
 
 @Component({
   selector: 'app-login',
@@ -21,26 +21,6 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error = '';
 
-  @Input() userName: string = "mlau";
-  @Input() password: string = "123";
-  @Output() authenticated = new EventEmitter<User>();
-  authResult: AuthenticationResult;
-
-  // constructor(private securityService: SecurityService) { }
-
-  // ngOnInit() {
-  //   this.authResult = new AuthenticationResult();
-  // }
-
-  // authenticate(): void {
-  //   this.authResult = this.securityService.authenticate(this.userName, this.password);
-  //   if (this.authResult.result) {
-  //     let user = new User();
-  //     user.userName = this.userName;
-  //     this.authenticated.emit(user);
-  //   }
-  // }
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -48,7 +28,6 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authResult = new AuthenticationResult();
 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -78,9 +57,9 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        data => {
-          alert('Y' + JSON.stringify(data));
-          this.router.navigate([this.returnUrl]);
+        (data: User) => {
+           AppData.currentUser = data;
+           this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;

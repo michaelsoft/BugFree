@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuComponent } from '../base/menu.component';
-import { LoginInfoComponent } from '../base/login-info.component';
 
 @Component({
   selector: 'app-bug-home',

@@ -9,18 +9,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let testUser = { id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' };
+        let testUser = { id: 1, userName: 'test', password: 'test', firstName: 'Test', lastName: 'User' };
 
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
 
             // authenticate
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
-                if (request.body.username === testUser.username && request.body.password === testUser.password) {
+                if (request.body.username === testUser.userName && request.body.password === testUser.password) {
                     // if login details are valid return 200 OK with a fake jwt token
                     let body = {
                         id: testUser.id,
-                        username: testUser.username,
+                        userName: testUser.userName,
                         firstName: testUser.firstName,
                         lastName: testUser.lastName,
                         token: 'fake-jwt-token'
