@@ -1,4 +1,4 @@
-namespace MichaelSoft.BugFree.Services
+namespace MichaelSoft.BugFree.WebApi
 {
     public class AppSettings
     {

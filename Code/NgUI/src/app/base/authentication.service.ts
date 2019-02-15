@@ -9,8 +9,6 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         let url = `${ AppData.appSettings.serviceBaseUrl }/users/authenticate`;
-        alert(url);
-        // return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })  //ToDo: why cannot use http here?
         return this.http.post<any>(url, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response

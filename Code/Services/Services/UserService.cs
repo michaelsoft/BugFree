@@ -7,9 +7,9 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-using MichaelSoft.BugFree.Services.Entities;
+using MichaelSoft.BugFree.WebApi.Entities;
 
-namespace MichaelSoft.BugFree.Services
+namespace MichaelSoft.BugFree.WebApi
 {
     public interface IUserService
     {

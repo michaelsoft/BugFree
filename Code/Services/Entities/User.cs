@@ -1,4 +1,4 @@
-namespace MichaelSoft.BugFree.Services.Entities
+namespace MichaelSoft.BugFree.WebApi.Entities
 {
     public class User
     {

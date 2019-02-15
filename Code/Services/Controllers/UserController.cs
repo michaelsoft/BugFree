@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using MichaelSoft.BugFree.WebApi.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-using MichaelSoft.BugFree.Services;
-using MichaelSoft.BugFree.Services.Entities;
-
-namespace MichaelSoft.BugFree.Services.Controllers
+namespace MichaelSoft.BugFree.WebApi.Controllers
 {
     [Authorize]
     [ApiController]
