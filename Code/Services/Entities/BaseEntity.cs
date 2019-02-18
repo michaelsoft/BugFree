@@ -5,17 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MichaelSoft.BugFree.WebApi.Data
-{
-    public class BugData
+namespace MichaelSoft.BugFree.WebApi.Entities
+{    
+    public abstract class BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BugId { get; set; }
+        public int Id { get; set; }
 
-        public string Tittle { get; set; }
-
-        public string Description { get; set; }
+        [NotMapped]
+        public virtual bool IsNew => this.Id <= 0;
 
     }
 }

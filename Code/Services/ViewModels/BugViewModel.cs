@@ -7,9 +7,15 @@ namespace MichaelSoft.BugFree.WebApi.ViewModels
 {
     public class BugViewModel
     {
-        public int BugId { get; set; }
+        public int Id { get; set; }
+
         public string Tittle { get; set; }
+
         public string Description { get; set; }
+
+        public int StateId { get; set; }
+
+        public BugAttachmentViewModel[] Attachments { get; set; }
 
     }
 }

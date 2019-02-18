@@ -1,4 +1,6 @@
-﻿using MichaelSoft.BugFree.WebApi.Data;
+﻿using MichaelSoft.BugFree.WebApi.DataMappers;
+using MichaelSoft.BugFree.WebApi.Entities;
+using MichaelSoft.BugFree.WebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,10 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using MichaelSoft.BugFree.WebApi.Data;
-using MichaelSoft.BugFree.WebApi.Services;
-using MichaelSoft.BugFree.WebApi.Entities;
-using MichaelSoft.BugFree.WebApi.ViewModels;
 
 namespace MichaelSoft.BugFree.WebApi
 {
@@ -61,11 +59,8 @@ namespace MichaelSoft.BugFree.WebApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBugService, BugService>();
 
-            AutoMapper.Mapper.Initialize(cfg => {
-                cfg.CreateMap<Bug, BugData>();
-                cfg.CreateMap<Bug, BugViewModel>();
-                }
-            );
+            DataMapper.Map(); // Set data mapper
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
