@@ -8,16 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MichaelSoft.BugFree.WebApi.Utils;
 
 namespace MichaelSoft.BugFree.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger _logger;
+
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
+            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -25,8 +30,12 @@ namespace MichaelSoft.BugFree.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            _logger.LogInformation("Application started");
+
             services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc( 
+                opt => opt.Filters.Add<LoggingFilter>()
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");

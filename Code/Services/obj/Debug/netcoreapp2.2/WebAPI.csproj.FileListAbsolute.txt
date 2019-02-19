@@ -11,4 +11,4 @@ C:\BugFree\Code\Services\bin\Debug\netcoreapp2.2\BugFree.WebApi.pdb
 C:\BugFree\Code\Services\obj\Debug\netcoreapp2.2\WebAPI.RazorTargetAssemblyInfo.cache
 C:\BugFree\Code\Services\obj\Debug\netcoreapp2.2\BugFree.WebApi.dll
 C:\BugFree\Code\Services\obj\Debug\netcoreapp2.2\BugFree.WebApi.pdb
-C:\BugFree\Code\Services\obj\Debug\netcoreapp2.2\WebAPI.csprojAssemblyReference.cache
+C:\BugFree\Code\Services\obj\Debug\netcoreapp2.2\WebAPI.csprojResolveAssemblyReference.cache

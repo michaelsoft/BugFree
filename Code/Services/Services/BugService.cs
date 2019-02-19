@@ -12,6 +12,8 @@ namespace MichaelSoft.BugFree.WebApi.Services
         void CreateBug(Bug bug);
 
         Task UpdateBug(Bug bug);
+
+        Task<Bug> GetBugById(int id);
     }
 
     public class BugService : IBugService
@@ -21,6 +23,11 @@ namespace MichaelSoft.BugFree.WebApi.Services
         public BugService(IOptions<AppSettings> appSettings, BugDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<Bug> GetBugById(int id)
+        {
+            return await _dbContext.Bugs.Include(b => b.Attachments).FirstOrDefaultAsync<Bug>(b => b.Id == id);
         }
 
         public void CreateBug(Bug bugData)
@@ -63,8 +70,7 @@ namespace MichaelSoft.BugFree.WebApi.Services
                     _dbContext.BugAttachments.Remove(existingAttachment);
                 }
             }
-
-            
+                        
 
             _dbContext.SaveChanges();
         }
