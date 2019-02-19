@@ -12,12 +12,18 @@ namespace MichaelSoft.BugFree.WebApi.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var converter = new EnumToNumberConverter<BugState, int>();
+            var bugStateConverter = new EnumToNumberConverter<BugState, int>();
 
             modelBuilder
                 .Entity<Bug>()
-                .Property(e => e.State)
-                .HasConversion(converter);
+                .HasMany(b => b.Attachments)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+               .Entity<Bug>()
+               .Property(e => e.State)
+               .HasConversion(bugStateConverter);
         }
 
         public DbSet<Bug> Bugs { get; set; }

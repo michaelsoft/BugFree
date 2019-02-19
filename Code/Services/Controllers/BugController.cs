@@ -25,20 +25,6 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute]int id)
-        {
-            var bug = await _bugService.GetBugById(id);
-            if (bug == null)
-            {
-                return NotFound();
-            }
-            var bugViewModel = AutoMapper.Mapper.Map<Bug, BugViewModel>(bug);
-            if (bug.Attachments != null)
-                bugViewModel.Attachments = AutoMapper.Mapper.Map<List<BugAttachment>, BugAttachmentViewModel[]>(bug.Attachments);
-            return Ok(bug);
-        }
-
         [HttpPost]
         public IActionResult Create(BugViewModel bugViewModel)
         {            
@@ -60,11 +46,53 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
                 await _bugService.UpdateBug(bug);
                 return Ok();
             }
-            catch(DataNotFoundException ex)
+            catch(BugFreeException ex)
             {
                 return BadRequest(ex.Message);
             }
 
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute]int id)
+        {
+            try
+            {
+                await _bugService.DeleteBug(id);
+            }
+            catch(BugFreeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute]int id)
+        {
+            var bug = await _bugService.GetBugById(id);
+            if (bug == null)
+            {
+                return NotFound();
+            }
+            var bugViewModel = AutoMapper.Mapper.Map<Bug, BugViewModel>(bug);
+            if (bug.Attachments != null)
+                bugViewModel.Attachments = AutoMapper.Mapper.Map<List<BugAttachment>, BugAttachmentViewModel[]>(bug.Attachments);
+            return Ok(bug);
+        }
+
+        [HttpGet("q")]
+        public async Task<IActionResult> Query([FromQuery]int? id, [FromQuery]string tittle)
+        {
+            var bugPred = new BugPredicate()
+            {
+                Id = id,
+                Tittle = tittle
+            };
+
+            var result = await _bugService.QueryBugs(bugPred);
+            return Ok(result);
         }
 
     }

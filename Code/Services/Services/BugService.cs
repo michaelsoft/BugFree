@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace MichaelSoft.BugFree.WebApi.Services
 {
@@ -13,7 +14,11 @@ namespace MichaelSoft.BugFree.WebApi.Services
 
         Task UpdateBug(Bug bug);
 
+        Task DeleteBug(int id);
+
         Task<Bug> GetBugById(int id);
+
+        Task<dynamic> QueryBugs(BugPredicate bugPred);
     }
 
     public class BugService : IBugService
@@ -23,11 +28,6 @@ namespace MichaelSoft.BugFree.WebApi.Services
         public BugService(IOptions<AppSettings> appSettings, BugDbContext dbContext)
         {
             _dbContext = dbContext;
-        }
-
-        public async Task<Bug> GetBugById(int id)
-        {
-            return await _dbContext.Bugs.Include(b => b.Attachments).FirstOrDefaultAsync<Bug>(b => b.Id == id);
         }
 
         public void CreateBug(Bug bugData)
@@ -75,5 +75,37 @@ namespace MichaelSoft.BugFree.WebApi.Services
             _dbContext.SaveChanges();
         }
 
+        public async Task DeleteBug(int id)
+        {
+            var bug = await _dbContext.Bugs.Include(b => b.Attachments).FirstOrDefaultAsync();
+            if (bug == null)
+                throw new DataNotFoundException($"Bug {id} does not exist in db.");
+
+            _dbContext.Bugs.Remove(bug);
+            await _dbContext.SaveChangesAsync();
+        } 
+
+        public async Task<Bug> GetBugById(int id)
+        {
+            return await _dbContext.Bugs.Include(b => b.Attachments).FirstOrDefaultAsync<Bug>(b => b.Id == id);
+        }
+
+        public async Task<dynamic> QueryBugs(BugPredicate bugPred)
+        {
+            var query = from b in _dbContext.Bugs
+                        select new { Id = b.Id, Tittle = b.Tittle, State = b.State };
+
+
+            if (bugPred.Id.HasValue)
+                query = query.Where(d => d.Id == bugPred.Id.Value);
+
+            if (!string.IsNullOrWhiteSpace(bugPred.Tittle))
+                query = query.Where(d => d.Tittle.Contains(bugPred.Tittle));
+
+            //if (bugPred.StateId != null && bugPred.StateId.Length > 0)
+            //query.Where(d => d.State == bugPred.Id.Value);
+
+            return await query.ToListAsync();
+        }
     }
 }
