@@ -26,12 +26,12 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(BugViewModel bugViewModel)
+        public async Task<IActionResult> Create(BugViewModel bugViewModel)
         {            
             var bug = AutoMapper.Mapper.Map<BugViewModel, Bug>(bugViewModel);
             if (bugViewModel.Attachments != null)
                 bug.Attachments = AutoMapper.Mapper.Map<BugAttachmentViewModel[], List<BugAttachment>>(bugViewModel.Attachments);
-            _bugService.CreateBug(bug);
+            await _bugService.CreateBug(bug);
             return Ok(bugViewModel.Id);
         }
 

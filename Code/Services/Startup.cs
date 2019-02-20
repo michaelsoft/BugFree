@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MichaelSoft.BugFree.WebApi.Utils;
+using MichaelSoft.BugFree.WebApi.DataAccess;
+using Microsoft.AspNetCore.Identity;
 
 namespace MichaelSoft.BugFree.WebApi
 {
@@ -42,6 +44,13 @@ namespace MichaelSoft.BugFree.WebApi
             services.Configure<AppSettings>(appSettingsSection);
             var bugDbConnStr = Configuration.GetConnectionString("BugDbConnStr");
             services.AddDbContext<BugDbContext>(options => options.UseSqlServer(bugDbConnStr));
+
+            services.AddDbContext<SecurityDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SecurityDbConnStr")));
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<SecurityDbContext>();
+
 
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();

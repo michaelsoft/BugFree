@@ -1,6 +1,8 @@
 ﻿using MichaelSoft.BugFree.WebApi.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MichaelSoft.BugFree.WebApi.Services;
+using System.Threading.Tasks;
 
 namespace MichaelSoft.BugFree.WebApi.Controllers
 {
