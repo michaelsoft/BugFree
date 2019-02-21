@@ -9,7 +9,7 @@ namespace MichaelSoft.BugFree.WebApi.ViewModels
     {
         public int Id { get; set; }
 
-        public string Tittle { get; set; }
+        public string tittle { get; set; }
 
         public string Description { get; set; }
 

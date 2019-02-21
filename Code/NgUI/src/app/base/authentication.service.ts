@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AppData } from './app-data';
+import { AuthenticationResults } from './authenticationResult';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -11,13 +12,14 @@ export class AuthenticationService {
         let url = `${ AppData.appSettings.serviceBaseUrl }/account/authenticate`;
         return this.http.post<any>(url, { username, password })
             .pipe(map(authResult => {
+                //alert(JSON.stringify(authResult));
                 // login successful if there's a jwt token in the response
-                if (authResult && authResult.Result == 1 && authResult.UserInfo) {
+                if (authResult && authResult.result == AuthenticationResults.Succeeded && authResult.userInfo) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(authResult.UserInfo));
+                    localStorage.setItem('currentUser', JSON.stringify(authResult.userInfo));
                 }
 
-                return authResult.UserInfo;
+                return authResult.userInfo;
             }));
     }
 

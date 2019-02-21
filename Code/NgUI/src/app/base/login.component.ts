@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AuthenticationResult } from './authenticationResult';
 import { User } from './user';
 
 import { Router, ActivatedRoute } from '@angular/router';

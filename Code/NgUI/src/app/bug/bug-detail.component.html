@@ -3,12 +3,23 @@
     <div class="bg-light clearfix">
       <div class="float-right" style="padding:5px;">
         <i class="icon-plus icon-large" style="margin-left:5px;"></i><a href="#"> New</a>
-        <i class="icon-save icon-large" style="margin-left:5px;"></i><a href="#" (click)="bugForm.form.valid && save()"> Save</a>
+        <i class="icon-save icon-large" style="margin-left:5px;"></i><a href="javascript: bugForm.submit();"> Save</a>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <form id="bugForm" name="bugForm" #bugForm="ngForm" novalidate>
+          <!-- <form [formGroup]="bugForm" (ngSubmit)="onSubmit()" style="margin: 10px; ">
+              <div class="form-group">
+                <label for="tittle">Tittle</label>
+                <input type="text" formControlName="tittle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.tittle.errors }" />
+                <div *ngIf="submitted && f.tittle.errors" class="invalid-feedback">
+                  <div *ngIf="f.tittle.errors.required">Tittle is required</div>
+                </div>
+              </div>
+
+              <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+            </form> -->
+        <form id="bugForm" name="bugForm" #bugForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="form-group row">
             <label for="BugID" class="col-sm-2 col-form-label">Bug#:</label>
             <div class="col-sm-10">

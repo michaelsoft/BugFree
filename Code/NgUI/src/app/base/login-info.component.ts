@@ -16,7 +16,7 @@ export class LoginInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = AppData.currentUser;
+    this.user = JSON.parse(localStorage.getItem('currentUser'));;
   }
 
   onLogout() {

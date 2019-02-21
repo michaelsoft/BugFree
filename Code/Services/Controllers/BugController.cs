@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MichaelSoft.BugFree.WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     [AllowAnonymous]

@@ -3,3 +3,11 @@ export class AuthenticationResult {
     errorMessage: string = "";
     token = ""
 }
+
+export enum AuthenticationResults {
+    Succeeded = 1,
+    InvalidUserNameOrPassword,
+    LockedOut,
+    PasswordExpired,
+    Default = InvalidUserNameOrPassword,
+}
