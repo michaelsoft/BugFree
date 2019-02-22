@@ -20,6 +20,7 @@
               <div *ngIf="error" class="alert alert-danger">{{error}}</div>
             </form> -->
         <form id="bugForm" name="bugForm" #bugForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+            <button type="submit" class="btn btn-success" [disabled]="!bugForm.form.valid">Submit</button>
           <div class="form-group row">
             <label for="BugID" class="col-sm-2 col-form-label">Bug#:</label>
             <div class="col-sm-10">
@@ -29,7 +30,7 @@
           <div class="form-group row">
             <label for="tittle" class="col-sm-2 col-form-label">Tittle:</label>
             <div class="col-sm-10">
-              <input id="tittle" name="tittle" type="text" class="form-control" required minlength="5" maxlength="100"
+              <input id="tittle" name="tittle" type="text" class="form-control" 
                 [(ngModel)]="bug.tittle" #tittle="ngModel">
               <div *ngIf="tittle.invalid && (tittle.dirty || tittle.touched)" class="alert alert-danger">
                 <div *ngIf="tittle.errors.required">

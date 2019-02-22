@@ -31,12 +31,27 @@ export class BugDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    alert('Bug:\n\n' + JSON.stringify(this.bug));
+    //alert('Bug:\n\n' + JSON.stringify(this.bug));
 
-    this.bugService.createBug2(this.bug)
+    this.bugService.createBug(this.bug)
       .subscribe(
-        (data) => alert(JSON.stringify(data)),
-        (error) => alert(error)
+        resp => {
+          // display its headers
+          const keys = resp.headers.keys();
+          let headers = keys.map(key =>
+            `${key}: ${resp.headers.get(key)}`);
+    
+          // access the body directly, which is typed as `Config`.
+          let data = resp.body;
+          alert( data );
+        }
+        // resp => {
+        //   alert('resp:' + JSON.stringify(resp));
+        // }
+
+
+        // (data) => alert(JSON.stringify(data)),
+        // (error) => alert('Error: ' + error)
       );
    
   }

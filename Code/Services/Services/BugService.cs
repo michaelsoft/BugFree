@@ -10,7 +10,7 @@ namespace MichaelSoft.BugFree.WebApi.Services
 {
     public interface IBugService
     {
-        Task CreateBug(Bug bug);
+        Task<int> CreateBug(Bug bug);
 
         Task UpdateBug(Bug bug);
 
@@ -30,10 +30,11 @@ namespace MichaelSoft.BugFree.WebApi.Services
             _dbContext = dbContext;
         }
 
-        public async Task CreateBug(Bug bugData)
+        public async Task<int> CreateBug(Bug bug)
         {
-            _dbContext.Bugs.Add(bugData);
-            _dbContext.SaveChanges();
+            _dbContext.Bugs.Add(bug);
+            await _dbContext.SaveChangesAsync();
+            return bug.Id;
         }
 
         public async Task UpdateBug(Bug newBug)

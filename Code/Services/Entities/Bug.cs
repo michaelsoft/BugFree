@@ -10,6 +10,10 @@ namespace MichaelSoft.BugFree.WebApi.Entities
 
     public class Bug : BaseEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(100)]
         public string Tittle { get; set; }

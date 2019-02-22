@@ -9,11 +9,10 @@ namespace MichaelSoft.BugFree.WebApi.DataMappers
         public BugProfile()
         {
             CreateMap<BugViewModel, Bug>()
-                .ForMember(d => d.Id, opt => opt.Condition( s => s.Id > 0)) //For new, don't set the Id, or it will cause EF error.
-                .ForMember(d => d.State, opt => opt.MapFrom(s => (BugState)s.StateId));
+                .ForMember(d => d.Id, opt => opt.Condition(s => s.Id > 0)); //For new, don't set the Id, or it will cause EF error.
+                                                                            //.ForMember(d => d.State, opt => opt.MapFrom(s => (BugState)s.State));
 
-            CreateMap<Bug, BugViewModel>()
-                .ForMember(s => s.StateId, opt => opt.MapFrom(d => (int)d.State));
+            CreateMap<Bug, BugViewModel>(); //.ForMember(s => s.State, opt => opt.MapFrom(d => (int)d.State));
 
             CreateMap<BugAttachmentViewModel, BugAttachment>()
                 .ForMember(d => d.Id, opt => opt.Condition(s => s.Id > 0));

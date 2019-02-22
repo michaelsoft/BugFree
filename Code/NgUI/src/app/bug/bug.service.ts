@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AppData } from '../base/app-data';
@@ -12,21 +12,13 @@ export class BugService {
 
   constructor(private http: HttpClient) { }
 
-  createBug(bug: Bug) {
-    let url = `${ AppData.appSettings.serviceBaseUrl }/bug/`;
-    return this.http.post<any>(url, bug).subscribe(
-          (data) => {
-            alert('ooo');
-            alert(JSON.stringify(data));
-            // login successful if there's a jwt token in the response
-            //return result.userInfo;
-            },
-          (error) => { alert(error); } // error path
-        );
-  }
+  // createBug(bug: Bug): Observable<number> {
+  //   let url = `${ AppData.appSettings.serviceBaseUrl }/bug/`;
+  //   return this.http.post<number>(url, bug);
+  // }
 
-  createBug2(bug: Bug): Observable<number> {
+  createBug(bug: Bug): Observable<HttpResponse<number>> {
     let url = `${ AppData.appSettings.serviceBaseUrl }/bug/`;
-    return this.http.post<number>(url, bug);
+    return this.http.post<number>(url, bug, {observe:'response'} );
   }
 }

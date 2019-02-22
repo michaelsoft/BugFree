@@ -30,9 +30,9 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         {            
             var bug = AutoMapper.Mapper.Map<BugViewModel, Bug>(bugViewModel);
             if (bugViewModel.Attachments != null)
-                bug.Attachments = AutoMapper.Mapper.Map<BugAttachmentViewModel[], List<BugAttachment>>(bugViewModel.Attachments);
-            await _bugService.CreateBug(bug);
-            return Ok(bugViewModel.Id);
+                bug.Attachments = AutoMapper.Mapper.Map<List<BugAttachmentViewModel>, List<BugAttachment>>(bugViewModel.Attachments);
+            var newId = await _bugService.CreateBug(bug);
+            return Ok(newId);
         }
 
         [HttpPut]
@@ -42,7 +42,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             {
                 var bug = AutoMapper.Mapper.Map<BugViewModel, Bug>(bugViewModel);
                 if (bugViewModel.Attachments != null)
-                    bug.Attachments = AutoMapper.Mapper.Map<BugAttachmentViewModel[], List<BugAttachment>>(bugViewModel.Attachments);
+                    bug.Attachments = AutoMapper.Mapper.Map<List<BugAttachmentViewModel>, List<BugAttachment>>(bugViewModel.Attachments);
                 await _bugService.UpdateBug(bug);
                 return Ok();
             }
@@ -78,7 +78,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             }
             var bugViewModel = AutoMapper.Mapper.Map<Bug, BugViewModel>(bug);
             if (bug.Attachments != null)
-                bugViewModel.Attachments = AutoMapper.Mapper.Map<List<BugAttachment>, BugAttachmentViewModel[]>(bug.Attachments);
+                bugViewModel.Attachments = AutoMapper.Mapper.Map<List<BugAttachment>, List<BugAttachmentViewModel>>(bug.Attachments);
             return Ok(bug);
         }
 
