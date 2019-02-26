@@ -1,16 +1,17 @@
 ﻿using MichaelSoft.BugFree.WebApi.Entities;
 using MichaelSoft.BugFree.WebApi.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using MichaelSoft.BugFree.WebApi.Utils;
 using MichaelSoft.BugFree.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MichaelSoft.BugFree.WebApi.Exceptions;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
 
 namespace MichaelSoft.BugFree.WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     [AllowAnonymous]
@@ -18,16 +19,24 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
     {
         private IBugService _bugService;
         private readonly ILogger _logger;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public BugController(ILogger<BugController> logger, IBugService bugService)
+        public BugController(ILogger<BugController> logger, IBugService bugService, RoleManager<IdentityRole> roleManager)
         {
             _bugService = bugService;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BugViewModel bugViewModel)
+        [CustomRolesAuthorizeFilter("Bug-Create")]
+        public async Task<IActionResult> Create([FromBody]BugViewModel bugViewModel)
         {            
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var bug = AutoMapper.Mapper.Map<BugViewModel, Bug>(bugViewModel);
             if (bugViewModel.Attachments != null)
                 bug.Attachments = AutoMapper.Mapper.Map<List<BugAttachmentViewModel>, List<BugAttachment>>(bugViewModel.Attachments);
@@ -36,6 +45,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpPut]
+        [CustomRolesAuthorizeFilter("Bug-Update")]
         public async Task<IActionResult> Update(BugViewModel bugViewModel)
         {
             try

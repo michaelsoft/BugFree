@@ -6,6 +6,7 @@
         {
             AutoMapper.Mapper.Initialize(cfg => {
                 cfg.AddProfile<BugProfile>();
+                cfg.AddProfile<UserProfile>();
             }
             );
         }

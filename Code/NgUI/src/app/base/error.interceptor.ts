@@ -16,8 +16,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
                 location.reload(true);
             }
+
+            if (err.status === 400) {
+                return throwError('Data validation failed.');
+            }
             
-            const error = err.error.message || err.statusText;
+            //const error = err.error.message || err.statusText;
+            const error = err.error.status + ': ' + err.error.title;
             return throwError(error);
         }))
     }

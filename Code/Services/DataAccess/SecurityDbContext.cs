@@ -1,4 +1,4 @@
-﻿using MichaelSoft.BugFree.WebApi.Utils;
+﻿using MichaelSoft.BugFree.WebApi.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

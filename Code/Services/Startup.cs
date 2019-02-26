@@ -51,7 +51,6 @@ namespace MichaelSoft.BugFree.WebApi
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<SecurityDbContext>();
 
-
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -74,7 +73,6 @@ namespace MichaelSoft.BugFree.WebApi
             });
 
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBugService, BugService>();
 
             DataMapper.Map(); // Set data mapper

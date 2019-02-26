@@ -13,6 +13,7 @@ export class BugDetailComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  successMessage = 'Success';
 
   @Input() bug: Bug;
 
@@ -32,26 +33,28 @@ export class BugDetailComponent implements OnInit {
 
   onSubmit() {
     //alert('Bug:\n\n' + JSON.stringify(this.bug));
+    this.submitted = true;
 
-    this.bugService.createBug(this.bug)
+    this.bugService.createBug2(this.bug)
       .subscribe(
-        resp => {
-          // display its headers
-          const keys = resp.headers.keys();
-          let headers = keys.map(key =>
-            `${key}: ${resp.headers.get(key)}`);
+        // resp => {
+        //   // display its headers
+        //   const keys = resp.headers.keys();
+        //   let headers = keys.map(key =>
+        //     `${key}: ${resp.headers.get(key)}`);
     
-          // access the body directly, which is typed as `Config`.
-          let data = resp.body;
-          alert( data );
-        }
+        //   // access the body directly, which is typed as `Config`.
+        //   let data = resp.body;
+        //   alert( data );
+        // },
+        // (error) => alert('Error: ' + JSON.stringify(error))
         // resp => {
         //   alert('resp:' + JSON.stringify(resp));
         // }
 
 
-        // (data) => alert(JSON.stringify(data)),
-        // (error) => alert('Error: ' + error)
+        (data) => alert(JSON.stringify(data)),
+        (error) => this.error = error
       );
    
   }

@@ -1,17 +1,16 @@
 ﻿using MichaelSoft.BugFree.WebApi.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MichaelSoft.BugFree.WebApi.Services;
-using System.Threading.Tasks;
 using MichaelSoft.BugFree.WebApi.Utils;
-using Microsoft.AspNetCore.Identity;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
-using System;
-using Microsoft.Extensions.Options;
 using MichaelSoft.BugFree.WebApi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MichaelSoft.BugFree.WebApi.Controllers
 {
@@ -34,11 +33,11 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody]User user)
+        public async Task<IActionResult> Authenticate([FromBody]LoginInfo loginInfo)
         {
             var authResult = new AuthenticationResult();
 
-            var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(loginInfo.UserName, loginInfo.Password, loginInfo.RememberMe, true);
             if (result.Succeeded)
             {
                 authResult.Result = AuthenticationResults.Succeeded;
@@ -56,7 +55,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
                 return Ok(authResult); 
             }
 
-            var appUser = await _userManager.FindByNameAsync(user.Username);
+            var appUser = await _userManager.FindByNameAsync(loginInfo.UserName);
             
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -72,25 +71,14 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var userInfoViewModel = new UserInfoViewModel();
-            userInfoViewModel.Token = tokenHandler.WriteToken(token);
-            userInfoViewModel.UserName = user.Username;
-            authResult.UserInfo = userInfoViewModel;
+            var appUserViewModel =  AutoMapper.Mapper.Map<AppUser, AppUserViewModel>(appUser);
+            appUserViewModel.Token = tokenHandler.WriteToken(token);
+            authResult.User = appUserViewModel;
 
             return Ok(authResult);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> CreateUser([FromBody]User user)
-        {
-            var appUser = new AppUser()
-            {
-                 UserName = user.Username,
-            };
-            var result = await _userManager.CreateAsync(appUser, user.Password);
-            return Ok(result);
-        }
+
 
     }
 }

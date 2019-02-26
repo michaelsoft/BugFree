@@ -12,10 +12,10 @@ export class BugService {
 
   constructor(private http: HttpClient) { }
 
-  // createBug(bug: Bug): Observable<number> {
-  //   let url = `${ AppData.appSettings.serviceBaseUrl }/bug/`;
-  //   return this.http.post<number>(url, bug);
-  // }
+  createBug2(bug: Bug): Observable<number> {
+    let url = `${ AppData.appSettings.serviceBaseUrl }/bug/`;
+    return this.http.post<number>(url, bug);
+  }
 
   createBug(bug: Bug): Observable<HttpResponse<number>> {
     let url = `${ AppData.appSettings.serviceBaseUrl }/bug/`;

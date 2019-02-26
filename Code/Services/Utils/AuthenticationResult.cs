@@ -15,7 +15,7 @@ namespace MichaelSoft.BugFree.WebApi.Utils
 
         public string ErrorMessage { get; set; } = string.Empty;
 
-        public UserInfoViewModel UserInfo { get; set; }
+        public AppUserViewModel User { get; set; }
 
     }
 
