@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace MichaelSoft.BugFree.WebApi.Utils
 {
@@ -26,6 +27,7 @@ namespace MichaelSoft.BugFree.WebApi.Utils
         /// </summary>
         public IEnumerable<string> AllowedRoles { get; }
 
+       
         /// <summary>
         /// Anthenticate user role
         /// </summary>
@@ -41,7 +43,9 @@ namespace MichaelSoft.BugFree.WebApi.Utils
                 }
                 else
                 {
-                    found = this.AllowedRoles.Any(r => context.HttpContext.User.IsInRole(r));
+                    found = this.AllowedRoles.Any(r => context.HttpContext.User.IsInRole(r)); // Why this always return false? Need a custom provider or what?
+                    //var roles = (context.HttpContext.User as ClaimsPrincipal).Claims.ToArray().Where<Claim>(claim => claim.ValueType == ClaimTypes.Role).Select(c => c.Value);
+                    //found = this.AllowedRoles.Any((r) => roles.Contains(r));
                 }
                 if (!found)
                 {

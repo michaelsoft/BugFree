@@ -14,7 +14,6 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous]
     public class BugController : ControllerBase
     {
         private IBugService _bugService;
@@ -29,7 +28,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpPost]
-        [CustomRolesAuthorizeFilter("Bug-Create")]
+        [Authorize(Roles = "Bug-Create")]
         public async Task<IActionResult> Create([FromBody]BugViewModel bugViewModel)
         {            
             if (!this.ModelState.IsValid)
@@ -45,7 +44,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpPut]
-        [CustomRolesAuthorizeFilter("Bug-Update")]
+        [Authorize(Roles = "Bug-Update")]
         public async Task<IActionResult> Update(BugViewModel bugViewModel)
         {
             try
@@ -64,6 +63,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Bug-Delete")]
         public async Task<IActionResult> Delete([FromRoute]int id)
         {
             try
@@ -79,6 +79,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Bug-View")]
         public async Task<IActionResult> GetById([FromRoute]int id)
         {
             var bug = await _bugService.GetBugById(id);
@@ -93,6 +94,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
         }
 
         [HttpGet("q")]
+        [Authorize(Roles = "Bug-View")]
         public async Task<IActionResult> Query([FromQuery]int? id, [FromQuery]string tittle)
         {
             var bugPred = new BugPredicate()

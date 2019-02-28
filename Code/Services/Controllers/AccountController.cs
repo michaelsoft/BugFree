@@ -11,6 +11,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MichaelSoft.BugFree.WebApi.Controllers
 {
@@ -56,19 +58,24 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             }
 
             var appUser = await _userManager.FindByNameAsync(loginInfo.UserName);
-            
+
+            var roles = await _userManager.GetRolesAsync(appUser);
+            var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r) );
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, appUser.UserName));
+            claims.AddRange(roleClaims.ToArray<Claim>());
+
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, appUser.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(1),
+                
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             var appUserViewModel =  AutoMapper.Mapper.Map<AppUser, AppUserViewModel>(appUser);

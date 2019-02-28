@@ -48,7 +48,9 @@ namespace MichaelSoft.BugFree.WebApi
             services.AddDbContext<SecurityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SecurityDbConnStr")));
 
-            services.AddIdentity<AppUser, IdentityRole>()
+
+            //services.AddIdentity<AppUser, IdentityRole>()
+            services.AddDefaultIdentity<AppUser>().AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SecurityDbContext>();
 
             // configure jwt authentication
@@ -65,10 +67,15 @@ namespace MichaelSoft.BugFree.WebApi
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
+                    //AuthenticationType = System.Security.Claims.ClaimTypes.Authentication,
+                    //NameClaimType = System.Security.Claims.ClaimTypes.Name,
+                    //RoleClaimType = System.Security.Claims.ClaimTypes.Role,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+
+                   
                 };
             });
 
