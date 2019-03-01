@@ -12,7 +12,7 @@ export class AuthenticationService {
         let url = `${ AppData.appSettings.serviceBaseUrl }/account/authenticate`;
         return this.http.post<any>(url, { "UserName": username, "Password": password, "RememberMe": true })
             .pipe(map(authResult => {
-                alert(JSON.stringify(authResult));
+                //alert(JSON.stringify(authResult));
                 // login successful if there's a jwt token in the response
                 if (authResult && authResult.result == AuthenticationResults.Succeeded && authResult.user) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes

@@ -13,8 +13,10 @@ namespace MichaelSoft.BugFree.WebApi
         public static void Main(string[] args)
         {
             var webHost = new WebHostBuilder()
+            //var webHost =  WebHost.CreateDefaultBuilder(args)
             .UseKestrel()
-            //.UseUrls("http://localhost:5000")
+            .UseIISIntegration()
+            //.UseUrls("http://0.0.0.0:1234")
             .UseContentRoot(Directory.GetCurrentDirectory())
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
@@ -36,19 +38,7 @@ namespace MichaelSoft.BugFree.WebApi
             .Build();
 
             webHost.Run();
-
-            //CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-          WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                    logging.AddEventSourceLogger();
-                })
-                .UseStartup<Startup>();
     }
 }
