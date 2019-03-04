@@ -21,6 +21,18 @@ namespace MichaelSoft.BugFree.WebApi.Entities
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
+                .Entity<Bug>()
+                .HasOne(b => b.AssignedTo)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<Bug>()
+                .HasOne(b => b.CreatedBy)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
                .Entity<Bug>()
                .Property(e => e.State)
                .HasConversion(bugStateConverter);
@@ -29,6 +41,8 @@ namespace MichaelSoft.BugFree.WebApi.Entities
         public DbSet<Bug> Bugs { get; set; }
 
         public DbSet<BugAttachment> BugAttachments { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 
 }

@@ -15,15 +15,26 @@ namespace MichaelSoft.BugFree.WebApi.Entities
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string Tittle { get; set; }
 
-        [MaxLength(1000)]
+        [StringLength(1000)]
         public string Description { get; set; }
 
         public BugState State { get; set; }
 
         public List<BugAttachment> Attachments { get; set; }
+
+        public int AssignedToId { get; set; }
+
+        public User AssignedTo { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime CreatedOn { get; set; }
+
+        public int CreatedById { get; set; }
+
+        public User CreatedBy { get; set; }
 
     }
 
