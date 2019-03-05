@@ -76,11 +76,11 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AssignedToId");
+                    b.Property<Guid?>("AssignedTo");
 
-                    b.Property<string>("CreatedById");
+                    b.Property<Guid>("CreatedBy");
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTimeOffset>("CreatedOn");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000);
@@ -89,13 +89,9 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
 
                     b.Property<string>("Tittle")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(500);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssignedToId");
-
-                    b.HasIndex("CreatedById");
 
                     b.ToTable("Bugs");
                 });
@@ -230,19 +226,6 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("MichaelSoft.BugFree.WebApi.Entities.Bug", b =>
-                {
-                    b.HasOne("MichaelSoft.BugFree.WebApi.Entities.AppUser", "AssignedTo")
-                        .WithMany()
-                        .HasForeignKey("AssignedToId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("MichaelSoft.BugFree.WebApi.Entities.AppUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("MichaelSoft.BugFree.WebApi.Entities.BugAttachment", b =>

@@ -2,17 +2,17 @@ using MichaelSoft.BugFree.WebApi.Entities;
 using MichaelSoft.BugFree.WebApi.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MichaelSoft.BugFree.WebApi.Services
 {
     public interface IBugService
     {
-        Task<int> CreateBug(Bug bug);
+        Task<int> CreateBug(Bug bug, AppUser currentUser);
 
-        Task UpdateBug(Bug bug);
+        Task UpdateBug(Bug bug, AppUser currentUser);
 
         Task DeleteBug(int id);
 
@@ -30,14 +30,17 @@ namespace MichaelSoft.BugFree.WebApi.Services
             _dbContext = dbContext;
         }
 
-        public async Task<int> CreateBug(Bug bug)
+        public async Task<int> CreateBug(Bug bug, AppUser currentUser)
         {
+            bug.CreatedOn = DateTimeOffset.Now;
+            bug.CreatedBy = currentUser.UserId;
+            
             _dbContext.Bugs.Add(bug);
             await _dbContext.SaveChangesAsync();
             return bug.Id;
         }
 
-        public async Task UpdateBug(Bug newBug)
+        public async Task UpdateBug(Bug newBug, AppUser currentUser)
         {
             var existingBug = await _dbContext.Bugs.Include(b => b.Attachments).FirstOrDefaultAsync(b => b.Id == newBug.Id);
             if (existingBug == null)

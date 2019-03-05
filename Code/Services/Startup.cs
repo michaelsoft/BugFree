@@ -81,7 +81,7 @@ namespace MichaelSoft.BugFree.WebApi
 
             // configure DI for application services
             services.AddScoped<IBugService, BugService>();
-
+            
             DataMapper.Map(); // Set data mapper
 
         }

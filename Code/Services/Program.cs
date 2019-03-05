@@ -15,7 +15,7 @@ namespace MichaelSoft.BugFree.WebApi
             var webHost = new WebHostBuilder()
             //var webHost =  WebHost.CreateDefaultBuilder(args)
             .UseKestrel()
-            .UseIISIntegration()
+            //.UseIISIntegration()
             //.UseUrls("http://0.0.0.0:1234")
             .UseContentRoot(Directory.GetCurrentDirectory())
             .ConfigureAppConfiguration((hostingContext, config) =>

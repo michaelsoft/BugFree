@@ -33,9 +33,9 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
 
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("token")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody]LoginInfo loginInfo)
+        public async Task<IActionResult> GetToken([FromBody]LoginInfo loginInfo)
         {
             var authResult = new AuthenticationResult();
 
@@ -62,6 +62,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             var roles = await _userManager.GetRolesAsync(appUser);
             var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r) );
             var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, appUser.Id));
             claims.Add(new Claim(ClaimTypes.Name, appUser.UserName));
             claims.AddRange(roleClaims.ToArray<Claim>());
 

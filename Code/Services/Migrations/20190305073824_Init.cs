@@ -48,6 +48,24 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Bugs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Tittle = table.Column<string>(maxLength: 500, nullable: false),
+                    Description = table.Column<string>(maxLength: 1000, nullable: true),
+                    State = table.Column<int>(nullable: false),
+                    AssignedTo = table.Column<Guid>(nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bugs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -154,36 +172,6 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bugs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Tittle = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    State = table.Column<int>(nullable: false),
-                    AssignedToId = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    CreatedById = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bugs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bugs_AspNetUsers_AssignedToId",
-                        column: x => x.AssignedToId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Bugs_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BugAttachments",
                 columns: table => new
                 {
@@ -247,16 +235,6 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
                 name: "IX_BugAttachments_BugId",
                 table: "BugAttachments",
                 column: "BugId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bugs_AssignedToId",
-                table: "Bugs",
-                column: "AssignedToId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bugs_CreatedById",
-                table: "Bugs",
-                column: "CreatedById");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -283,10 +261,10 @@ namespace MichaelSoft.BugFree.WebApi.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Bugs");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Bugs");
         }
     }
 }

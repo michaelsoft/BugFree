@@ -14,17 +14,13 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BugController : ControllerBase
+    public class BugController : BaseController
     {
         private IBugService _bugService;
-        private readonly ILogger _logger;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public BugController(ILogger<BugController> logger, IBugService bugService, RoleManager<IdentityRole> roleManager)
+        public BugController(ILogger<BugController> logger, IBugService bugService): base(logger)
         {
             _bugService = bugService;
-            _logger = logger;
-            _roleManager = roleManager;
         }
 
         [HttpPost]
@@ -39,7 +35,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
             var bug = AutoMapper.Mapper.Map<BugViewModel, Bug>(bugViewModel);
             if (bugViewModel.Attachments != null)
                 bug.Attachments = AutoMapper.Mapper.Map<List<BugAttachmentViewModel>, List<BugAttachment>>(bugViewModel.Attachments);
-            var newId = await _bugService.CreateBug(bug);
+            var newId = await _bugService.CreateBug(bug, base.CurrentUser);
             return Ok(newId);
         }
 
@@ -52,7 +48,7 @@ namespace MichaelSoft.BugFree.WebApi.Controllers
                 var bug = AutoMapper.Mapper.Map<BugViewModel, Bug>(bugViewModel);
                 if (bugViewModel.Attachments != null)
                     bug.Attachments = AutoMapper.Mapper.Map<List<BugAttachmentViewModel>, List<BugAttachment>>(bugViewModel.Attachments);
-                await _bugService.UpdateBug(bug);
+                await _bugService.UpdateBug(bug, base.CurrentUser);
                 return Ok();
             }
             catch(BugFreeException ex)
