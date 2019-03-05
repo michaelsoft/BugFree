@@ -1,9 +1,11 @@
 ﻿using MichaelSoft.BugFree.WebApi.DataMappers;
 using MichaelSoft.BugFree.WebApi.Entities;
 using MichaelSoft.BugFree.WebApi.Services;
+using MichaelSoft.BugFree.WebApi.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,9 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using MichaelSoft.BugFree.WebApi.Utils;
-using MichaelSoft.BugFree.WebApi.DataAccess;
-using Microsoft.AspNetCore.Identity;
 
 namespace MichaelSoft.BugFree.WebApi
 {
@@ -42,16 +41,17 @@ namespace MichaelSoft.BugFree.WebApi
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+
             var bugDbConnStr = Configuration.GetConnectionString("BugDbConnStr");
             services.AddDbContext<BugDbContext>(options => options.UseSqlServer(bugDbConnStr));
 
-            services.AddDbContext<SecurityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SecurityDbConnStr")));
+            //services.AddDbContext<SecurityDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("BugDbConnStr")));
 
 
             //services.AddIdentity<AppUser, IdentityRole>()
             services.AddDefaultIdentity<AppUser>().AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<SecurityDbContext>();
+                .AddEntityFrameworkStores<BugDbContext>();
 
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();

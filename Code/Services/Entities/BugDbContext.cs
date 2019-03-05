@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Generic;
 
 namespace MichaelSoft.BugFree.WebApi.Entities
 {
-    public class BugDbContext : DbContext
+    public class BugDbContext : IdentityDbContext<AppUser>
     {
         public BugDbContext(DbContextOptions<BugDbContext> options)
                     : base(options)
@@ -12,6 +13,8 @@ namespace MichaelSoft.BugFree.WebApi.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             var bugStateConverter = new EnumToNumberConverter<BugState, int>();
 
             modelBuilder
@@ -42,7 +45,7 @@ namespace MichaelSoft.BugFree.WebApi.Entities
 
         public DbSet<BugAttachment> BugAttachments { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
     }
 
 }

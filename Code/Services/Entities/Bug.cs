@@ -25,16 +25,16 @@ namespace MichaelSoft.BugFree.WebApi.Entities
 
         public List<BugAttachment> Attachments { get; set; }
 
-        public int AssignedToId { get; set; }
+        public string AssignedToId { get; set; }
 
-        public User AssignedTo { get; set; }
+        public AppUser AssignedTo { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
 
-        public int CreatedById { get; set; }
+        public string CreatedById { get; set; }
 
-        public User CreatedBy { get; set; }
+        public AppUser CreatedBy { get; set; }
 
     }
 

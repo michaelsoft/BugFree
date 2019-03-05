@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MichaelSoft.BugFree.WebApi.Entities
 {
@@ -22,5 +18,6 @@ namespace MichaelSoft.BugFree.WebApi.Entities
             builder.UseSqlServer(connectionString);
             return new BugDbContext(builder.Options);
         }
+
     }
 }
